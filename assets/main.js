@@ -13,7 +13,7 @@
 async function renderMarkdown(url, el) {
   el.innerHTML = '<p class="loading-msg">Loading…</p>';
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: 'no-cache' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const text = await res.text();
     el.classList.add('md-content');
@@ -73,7 +73,7 @@ function parseFrontMatter(text) {
  */
 async function loadIndex(jsonUrl) {
   try {
-    const res = await fetch(jsonUrl);
+    const res = await fetch(jsonUrl, { cache: 'no-cache' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (err) {

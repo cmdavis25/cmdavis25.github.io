@@ -275,7 +275,8 @@ ul, ol {
    Page Sections
    ============================================================ */
 .site-main {
-  padding-block: 2.5rem;
+  padding-top: 1rem;
+  padding-bottom: 2.5rem;
 }
 
 .page-section {
@@ -307,6 +308,25 @@ ul, ol {
 
 .card + .card {
   margin-top: 1rem;
+}
+
+.card-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
+
+.card-title-row .card-title {
+  margin-bottom: 0;
+}
+
+.card-title-row .card-meta {
+  margin-bottom: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .card-title {
@@ -521,6 +541,127 @@ ul, ol {
   .card {
     padding: 1rem;
   }
+}
+
+/* ============================================================
+   Visualization Gallery — horizontal scroll strip
+   ============================================================ */
+#viz-gallery {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+}
+
+#viz-gallery::-webkit-scrollbar {
+  height: 6px;
+}
+
+#viz-gallery::-webkit-scrollbar-track {
+  background: var(--bg-card);
+  border-radius: 3px;
+}
+
+#viz-gallery::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+#viz-gallery::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.viz-item {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  margin: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.viz-item:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.viz-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  background: #fff;
+  display: block;
+}
+
+.viz-item figcaption {
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Lightbox
+   ============================================================ */
+#viz-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.85);
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+#viz-lightbox.is-open {
+  display: flex;
+}
+
+#viz-lightbox img {
+  max-width: min(90vw, 1000px);
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  cursor: default;
+}
+
+#viz-lightbox-caption {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: rgba(0,0,0,0.5);
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+#viz-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+#viz-lightbox-close:hover {
+  opacity: 1;
 }
 
 /* ============================================================

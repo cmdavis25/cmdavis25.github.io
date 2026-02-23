@@ -4,64 +4,54 @@
 
 | Decision | Choice | Rationale |
 |---|---|---|
-| Framework | Plain HTML/CSS/JS | No build step; commit to `main` and GitHub Pages serves directly |
+| Framework | Plain HTML/CSS/JS | No build step; commit to `main`, GitHub Pages serves directly |
 | Markdown rendering | `marked.js` via CDN | Client-side fetch + parse; no tooling required |
-| Styling | Hand-written CSS | Full control; sepia palette is simpler to hand-craft than to configure in a framework |
-| Content indexing | Manual `posts.json` / `projects.json` | No server-side enumeration possible in a static site |
-| GitHub activity | `ghchart.rshah.org` `<img>` embed | Zero-JS, shows actual contribution grid |
+| Styling | Hand-written CSS | Full control; sepia palette is simpler to hand-craft |
+| Content indexing | Manual `posts.json` / `projects.json` | No server-side enumeration on static sites |
+| GitHub activity | `ghchart.rshah.org` `<img>` embed | Zero-JS contribution grid |
 
 ## Design System
 
-### Palette (warm parchment / classic sepia)
+**Palette (warm parchment / sepia)**
 
-```
---bg:        #f5efe6   /* page background */
---bg-card:   #ede3d6   /* card / section background */
---text:      #3b2a1a   /* primary text */
---text-muted:#7a6250   /* secondary / caption text */
---accent:    #a0522d   /* sienna — buttons, active states */
---border:    #d4c4b0   /* dividers, card borders */
---link:      #7b4a2a   /* inline links */
-```
-
-### Typography (Google Fonts)
-
-| Role | Font | Use |
+| Token | Value | Use |
 |---|---|---|
-| Headers | Raleway (sans-serif) | Page titles, section headings, nav links |
-| Body | Lora (serif) | Paragraphs, card text |
-| Code / labels | JetBrains Mono (monospace) | Skill tags, tool badges, inline code |
+| `--bg` | `#f5efe6` | page background |
+| `--bg-card` | `#ede3d6` | card / section background |
+| `--text` | `#3b2a1a` | primary text |
+| `--text-muted` | `#7a6250` | secondary / caption text |
+| `--accent` | `#a0522d` | sienna — buttons, active states |
+| `--border` | `#d4c4b0` | dividers, card borders |
+| `--link` | `#7b4a2a` | inline links |
 
-### Layout
-
-- Max content width: **860 px**, centered
-- Sticky top nav: avatar + name/email (left), phone + nav links + icons (right); hamburger on mobile
-- CSS custom properties for all tokens; no preprocessor needed
+**Typography:** Raleway (headers) · Lora (body) · JetBrains Mono (code/tags) — all via Google Fonts.
+**Layout:** 860 px max-width, centered. Sticky nav: brand left, phone + links + icons right; hamburger on mobile.
 
 ## File Structure
 
 ```
 cmdavis25.github.io/
-├── index.html              ✅ complete
-├── projects.html
-├── bio.html
-├── blog.html
-├── posts.json              ✅ created
-├── projects.json           ✅ created
+├── index.html              ✅ complete (all sections wired and rendering)
+├── projects.html           ⬜ not started
+├── bio.html                ⬜ not started
+├── blog.html               ⬜ not started
+├── posts.json              ✅ created  ["blog_2026-02-23.md"]
+├── projects.json           ✅ created  (placeholder)
 ├── assets/
 │   ├── style.css           ✅ complete
 │   ├── main.js             ✅ complete
 │   ├── avatar.jpg          ← user provides
 │   └── images/
-│       ├── viz/
-│       └── projects/
+│       ├── viz/            ✅ 5 images present
+│       └── projects/       ⬜ empty
 ├── blog_posts/
-├── projects/
+│   └── blog_2026-02-23.md  ✅ one post with front matter
+├── projects/               ⬜ placeholder file only
 ├── resume/                 ✅ PDF present
-├── value_proposition.md
-├── tech_stack.md
-├── skills.md
-└── bio.md
+├── value_proposition.md    ✅ content added
+├── tech_stack.md           ✅ content added
+├── skills.md               ✅ content added
+└── bio.md                  ✅ content added
 ```
 
 ## Implementation Phases
@@ -69,14 +59,15 @@ cmdavis25.github.io/
 ### ✅ Phase 1 — Shared Skeleton (complete)
 
 - `assets/style.css` — CSS reset, custom properties, typography, nav, cards, accordion, mobile breakpoints
-- `assets/main.js` — `renderMarkdown()`, `parseFrontMatter()`, `loadIndex()`, nav hamburger toggle, accordion handler, active-page marker
-- `index.html` — sticky nav (avatar, name, email left · phone, links, Resume, GitHub, LinkedIn right); all homepage sections wired up and rendering
+- `assets/main.js` — `renderMarkdown()`, `parseFrontMatter()`, `loadIndex()`, nav hamburger, accordion handler, active-page marker
+- `index.html` — sticky nav fully wired; all 6 homepage sections rendering from Markdown + live data
 
-**Nav details:** phone number sits between email and Projects, styled identically to nav links but non-interactive. GitHub Activity chart uses `ghchart.rshah.org/a0522d/cmdavis25` (sienna accent), displayed in a white card that links to the GitHub profile and highlights on hover. Section order: GitHub Activity → Value Proposition → Tech Stack → Skills → Latest Post → Visualizations.
+**Homepage section order:** Value Proposition → Latest Post → GitHub Activity → Tech Stack → Skills → Visualizations Gallery
+**Viz gallery:** 5 images embedded with `<figure>` / `<figcaption>`; lightbox (click to enlarge, Escape/backdrop to close) implemented.
 
-### Phase 2 — Homepage content (`index.html`)
+### ✅ Phase 2 — Homepage Content (complete)
 
-Replace placeholder `.md` files with real content; add visualization `<img>` tags to `#viz-gallery`.
+All `.md` source files (`value_proposition.md`, `tech_stack.md`, `skills.md`, `bio.md`) contain real content. One blog post exists (`blog_2026-02-23.md`). Visualization images are in `assets/images/viz/`.
 
 ### Phase 3 — Projects Page (`projects.html`)
 
@@ -101,7 +92,7 @@ Single `renderMarkdown('bio.md', el)` call into a centered content area.
 
 ### Phase 5 — Blog Page (`blog.html`)
 
-- Fetch `posts.json` (newest-first); render preview card per post (title, date, first paragraph)
+- Fetch `posts.json` (newest-first); render preview card per post (title, date, summary)
 - Click to expand full post inline (CSS accordion)
 
 **Front matter convention:**
@@ -117,16 +108,14 @@ summary: Optional one-line teaser
 
 - Mobile QA: hamburger, card stacking, font sizes
 - Validate all links: resume PDF, mailto, GitHub, LinkedIn
-- Update `CLAUDE.md` with final decisions
 - Push to `main` → live at `https://cmdavis25.github.io`
 
 ## Index File Format
 
-Add new content by prepending the filename to the relevant JSON array and committing the `.md` file.
+Add new content by prepending the filename to the relevant JSON array.
 
 **`posts.json`** (newest first): `["blog_2026-02-23.md"]`
-
-**`projects.json`**: `["project_test_2026-02-23.md"]`
+**`projects.json`**: `["project_<slug>_<YYYY-MM-DD>.md"]`
 
 ## Verification Checklist
 

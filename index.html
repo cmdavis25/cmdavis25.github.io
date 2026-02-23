@@ -118,6 +118,18 @@
   <main class="site-main">
     <div class="container">
 
+      <!-- Value Proposition -->
+      <section class="page-section" id="value-proposition" aria-labelledby="heading-value">
+        <h2 class="section-heading" id="heading-value">Value Proposition</h2>
+        <div id="value-proposition-content"></div>
+      </section>
+
+      <!-- Latest Blog Post (preview) -->
+      <section class="page-section" id="latest-post" aria-labelledby="heading-blog">
+        <h2 class="section-heading" id="heading-blog">Latest Post</h2>
+        <div id="latest-post-content"></div>
+      </section>
+
       <!-- GitHub Contributions -->
       <section class="page-section" id="github-activity" aria-labelledby="heading-github">
         <h2 class="section-heading" id="heading-github">GitHub Activity</h2>
@@ -136,12 +148,6 @@
         </a>
       </section>
 
-      <!-- Value Proposition -->
-      <section class="page-section" id="value-proposition" aria-labelledby="heading-value">
-        <h2 class="section-heading" id="heading-value">Value Proposition</h2>
-        <div id="value-proposition-content"></div>
-      </section>
-
       <!-- Tech Stack -->
       <section class="page-section" id="tech-stack" aria-labelledby="heading-tech">
         <h2 class="section-heading" id="heading-tech">Tech Stack</h2>
@@ -154,31 +160,63 @@
         <div id="skills-content"></div>
       </section>
 
-      <!-- Latest Blog Post (preview) -->
-      <section class="page-section" id="latest-post" aria-labelledby="heading-blog">
-        <h2 class="section-heading" id="heading-blog">Latest Post</h2>
-        <div id="latest-post-content"></div>
-      </section>
-
       <!-- Visualization Gallery -->
       <section class="page-section" id="visualizations" aria-labelledby="heading-viz">
-        <h2 class="section-heading" id="heading-viz">Visualizations</h2>
+        <h2 class="section-heading" id="heading-viz">Visualizations Gallery</h2>
         <div id="viz-gallery">
-          <p class="loading-msg">Visualization images will appear here.</p>
+          <figure class="viz-item">
+            <img src="assets/images/viz/Order_Volume_by_Hour_Line_users.png" alt="Order volume by hour of day — line chart" loading="lazy" />
+            <figcaption>Order Volume by Hour of Day</figcaption>
+          </figure>
+          <figure class="viz-item">
+            <img src="assets/images/viz/Basket_Quantity_Frequency_Hist_users.png" alt="Basket quantity frequency — histogram" loading="lazy" />
+            <figcaption>Basket Quantity Frequency</figcaption>
+          </figure>
+          <figure class="viz-item">
+            <img src="assets/images/viz/Total_Reorders_Department_Barchart_users.png" alt="Total reorders by department — bar chart" loading="lazy" />
+            <figcaption>Total Reorders by Department</figcaption>
+          </figure>
+          <figure class="viz-item">
+            <img src="assets/images/viz/aisle_id_Per_Order_Sums_Pairplot_users.png" alt="Aisle ID per-order sums — pairplot" loading="lazy" />
+            <figcaption>Aisle ID Per-Order Sums (Pairplot)</figcaption>
+          </figure>
+          <figure class="viz-item">
+            <img src="assets/images/viz/department_id_Per_Order_Sums_Pairplot_users.png" alt="Department ID per-order sums — pairplot" loading="lazy" />
+            <figcaption>Department ID Per-Order Sums (Pairplot)</figcaption>
+          </figure>
         </div>
       </section>
 
     </div>
   </main>
 
+  <!-- Lightbox overlay -->
+  <div id="viz-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="viz-lightbox-close" aria-label="Close image viewer">×</button>
+    <img id="viz-lightbox-img" src="" alt="" />
+    <div id="viz-lightbox-caption"></div>
+  </div>
+
   <!-- Site JS (shared utilities + nav toggle) -->
   <script src="assets/main.js"></script>
 
   <script>
+    // Render a Markdown section, hoisting its first heading into the section's <h2>.
+    async function renderSection(mdUrl, contentEl, headingEl) {
+      await renderMarkdown(mdUrl, contentEl);
+      if (headingEl) {
+        const firstHeading = contentEl.querySelector('h1,h2,h3,h4,h5,h6');
+        if (firstHeading) {
+          headingEl.textContent = firstHeading.textContent;
+          firstHeading.remove();
+        }
+      }
+    }
+
     // Render homepage Markdown sections
-    renderMarkdown('value_proposition.md', document.getElementById('value-proposition-content'));
-    renderMarkdown('tech_stack.md',        document.getElementById('tech-stack-content'));
-    renderMarkdown('skills.md',            document.getElementById('skills-content'));
+    renderSection('value_proposition.md', document.getElementById('value-proposition-content'), document.getElementById('heading-value'));
+    renderMarkdown('tech_stack.md',       document.getElementById('tech-stack-content'));
+    renderMarkdown('skills.md',           document.getElementById('skills-content'));
 
     // Latest blog post preview
     (async () => {
@@ -190,17 +228,31 @@
       }
       const url = 'blog_posts/' + files[0];
       try {
-        const res = await fetch(url);
+        const res = await fetch(url, { cache: 'no-cache' });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const text = await res.text();
         const { data, content } = parseFrontMatter(text);
-        const firstPara = content.split(/\n\n+/).find(s => s.trim()) || '';
+
+        // Format date as "Month D, YYYY"
+        const dateStr = data.date
+          ? new Date(data.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+          : '';
+
+        // First 3 non-empty lines of body text
+        const previewLines = content.split('\n').filter(l => l.trim()).slice(0, 3).join(' ');
+
         el.innerHTML = `
           <div class="card">
-            <div class="card-meta">${data.date || ''}</div>
-            <div class="card-title">${data.title || files[0]}</div>
-            <div class="card-summary md-content">${marked.parse(firstPara)}</div>
-            <a href="blog.html" style="font-family:var(--font-heading);font-size:0.875rem;">
+            <div class="card-title-row">
+              <div class="card-title">${data.title || files[0]}</div>
+              <div class="card-meta">${dateStr}</div>
+            </div>
+            <div class="card-summary">${data.summary || ''}</div>
+            <button class="accordion-toggle" aria-expanded="false">Read more ▾</button>
+            <div class="accordion-body md-content">
+              <p>${previewLines}</p>
+            </div>
+            <a href="blog.html" style="font-family:var(--font-heading);font-size:0.875rem;display:block;margin-top:0.75rem;">
               Read all posts →
             </a>
           </div>`;
@@ -208,6 +260,48 @@
         el.innerHTML = `<p class="error-msg">Could not load latest post (${err.message}).</p>`;
       }
     })();
+  </script>
+
+  <script>
+    // Lightbox for viz gallery
+    const lightbox    = document.getElementById('viz-lightbox');
+    const lbImg       = document.getElementById('viz-lightbox-img');
+    const lbCaption   = document.getElementById('viz-lightbox-caption');
+    const lbClose     = document.getElementById('viz-lightbox-close');
+
+    function openLightbox(src, alt, caption) {
+      lbImg.src = src;
+      lbImg.alt = alt;
+      lbCaption.textContent = caption;
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('viz-gallery').addEventListener('click', e => {
+      const item = e.target.closest('.viz-item');
+      if (!item) return;
+      const img     = item.querySelector('img');
+      const caption = item.querySelector('figcaption');
+      openLightbox(img.src, img.alt, caption ? caption.textContent : '');
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+
+    // Click backdrop (not the image) to close
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Escape key to close
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+    });
   </script>
 
 </body>
