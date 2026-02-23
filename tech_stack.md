@@ -1,3 +1,7 @@
-Placeholder for Tech Stack section content.
+**Languages:** SQL · Python · R · DAX · VBA
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+**Visualization:** Power BI · Tableau · matplotlib · ggplot2
+
+**Data Science:** Pandas · Regression · DOE · Hypothesis Testing · PCA · NLP · Monte Carlo Simulation
+
+**Infrastructure:** Git · HPC (PBS, Slurm) · ERP (Epicor, GlobalShop) · SolidWorks PDM

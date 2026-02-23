@@ -1,3 +1,5 @@
-Placeholder for Skills section content.
+**Domain Expertise:** Aerospace & Defense · Manufacturing & Quality Engineering · Medical Devices · Consumer Products · Supply Chain · Data Center Infrastructure
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+**Methods & Practices:** Exploratory Data Analysis · Statistical Modeling · Design of Experiments · Root Cause Analysis (FMEA, Fault Tree, 5 Why) · Data Pipeline Design · Product Development · Cost Modeling
+
+**Professional Skills:** Cross-functional Collaboration · Customer-Facing Delivery · Technical Communication · Requirements Gathering · Research & Documentation
