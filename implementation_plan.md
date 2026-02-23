@@ -1,11 +1,5 @@
 # Implementation Plan: cmdavis25.github.io
 
-## Context
-
-Personal portfolio site for C. Morgan Davis, hosted on GitHub Pages, targeting Data Analyst/Scientist/Engineer recruiters. The repo contains placeholder Markdown content files and a resume PDF but no HTML/CSS/JS yet. This plan establishes the architecture and implementation sequence.
-
----
-
 ## Architectural Decisions
 
 | Decision | Choice | Rationale |
@@ -15,8 +9,6 @@ Personal portfolio site for C. Morgan Davis, hosted on GitHub Pages, targeting D
 | Styling | Hand-written CSS | Full control; sepia palette is simpler to hand-craft than to configure in a framework |
 | Content indexing | Manual `posts.json` / `projects.json` | No server-side enumeration possible in a static site |
 | GitHub activity | `ghchart.rshah.org` `<img>` embed | Zero-JS, shows actual contribution grid |
-
----
 
 ## Design System
 
@@ -36,81 +28,66 @@ Personal portfolio site for C. Morgan Davis, hosted on GitHub Pages, targeting D
 
 | Role | Font | Use |
 |---|---|---|
-| Headers | Raleway (sans-serif) | Page titles, section headings |
+| Headers | Raleway (sans-serif) | Page titles, section headings, nav links |
 | Body | Lora (serif) | Paragraphs, card text |
 | Code / labels | JetBrains Mono (monospace) | Skill tags, tool badges, inline code |
 
 ### Layout
 
 - Max content width: **860 px**, centered
-- Sticky top nav: avatar + name (left), nav links + icons (right); hamburger on mobile
+- Sticky top nav: avatar + name/email (left), phone + nav links + icons (right); hamburger on mobile
 - CSS custom properties for all tokens; no preprocessor needed
 
----
-
-## Target File Structure
+## File Structure
 
 ```
 cmdavis25.github.io/
-├── index.html
+├── index.html              ✅ complete
 ├── projects.html
 ├── bio.html
 ├── blog.html
-├── posts.json              ← manual index, newest-first
-├── projects.json           ← manual index
+├── posts.json              ✅ created
+├── projects.json           ✅ created
 ├── assets/
-│   ├── style.css
-│   ├── main.js
+│   ├── style.css           ✅ complete
+│   ├── main.js             ✅ complete
 │   ├── avatar.jpg          ← user provides
 │   └── images/
-│       ├── viz/            ← visualization screenshots
-│       └── projects/       ← project thumbnails
-├── blog_posts/             ← existing .md files
-├── projects/               ← existing .md files
-├── resume/                 ← existing PDF
+│       ├── viz/
+│       └── projects/
+├── blog_posts/
+├── projects/
+├── resume/                 ✅ PDF present
 ├── value_proposition.md
 ├── tech_stack.md
 ├── skills.md
 └── bio.md
 ```
 
----
-
 ## Implementation Phases
 
-### Phase 1 — Shared Skeleton
+### ✅ Phase 1 — Shared Skeleton (complete)
 
-1. **`assets/style.css`** — CSS reset, custom properties, typography imports, nav styles, card styles, accordion styles, mobile breakpoints
-2. **`assets/main.js`** — shared utilities:
-   - `renderMarkdown(url, el)` — fetch a `.md` file, parse with `marked.parse()`, inject HTML
-   - `parseFrontMatter(text)` — lightweight regex to extract `---` YAML front matter into an object
-   - `loadIndex(jsonUrl)` — fetch a `.json` index file, return filename array
-3. **`index.html`** — full sticky nav bar (avatar, name, contact, nav links, GitHub/LinkedIn icons); empty section placeholders
+- `assets/style.css` — CSS reset, custom properties, typography, nav, cards, accordion, mobile breakpoints
+- `assets/main.js` — `renderMarkdown()`, `parseFrontMatter()`, `loadIndex()`, nav hamburger toggle, accordion handler, active-page marker
+- `index.html` — sticky nav (avatar, name, email left · phone, links, Resume, GitHub, LinkedIn right); all homepage sections wired up and rendering
 
-### Phase 2 — Homepage (`index.html`)
+**Nav details:** phone number sits between email and Projects, styled identically to nav links but non-interactive. GitHub Activity chart uses `ghchart.rshah.org/a0522d/cmdavis25` (sienna accent), displayed in a white card that links to the GitHub profile and highlights on hover. Section order: GitHub Activity → Value Proposition → Tech Stack → Skills → Latest Post → Visualizations.
 
-Sections rendered in order:
+### Phase 2 — Homepage content (`index.html`)
 
-| Section | Source | Method |
-|---|---|---|
-| Value Proposition | `value_proposition.md` | `renderMarkdown()` |
-| Tech Stack | `tech_stack.md` | `renderMarkdown()` |
-| Skills | `skills.md` | `renderMarkdown()` |
-| GitHub Contributions | `ghchart.rshah.org/cmdavis25` | Static `<img>` |
-| Latest Blog Post | `posts.json` → first entry | Fetch, parse, render preview card |
-| Visualization Gallery | `assets/images/viz/` | Static `<img>` tags |
+Replace placeholder `.md` files with real content; add visualization `<img>` tags to `#viz-gallery`.
 
 ### Phase 3 — Projects Page (`projects.html`)
 
 - Fetch `projects.json` → load each `.md` → parse front matter + body
-- Render summary cards: thumbnail, title, one-line summary, tool badges
-- Click to expand (CSS accordion) → full detail: problem, approach, tools, outcome, optional GitHub link
+- Summary cards: thumbnail, title, summary, tool badges; click to expand full detail
 
-**Front matter convention for project files:**
+**Front matter convention:**
 ```
 ---
 title: Project Title
-summary: One-line description for the card
+summary: One-line description
 thumbnail: assets/images/projects/my-project.jpg
 tools: Python, SQL, dbt
 github: https://github.com/cmdavis25/repo
@@ -120,16 +97,14 @@ date: 2026-02-23
 
 ### Phase 4 — Bio Page (`bio.html`)
 
-- Single `renderMarkdown('bio.md', el)` call into a centered content area
-- Same nav and styles; no additional logic needed
+Single `renderMarkdown('bio.md', el)` call into a centered content area.
 
 ### Phase 5 — Blog Page (`blog.html`)
 
-- Fetch `posts.json` (maintain newest-first order)
-- For each entry: fetch `.md`, parse front matter, render preview card (title, date, first paragraph)
-- Click to expand full post inline (same CSS accordion pattern)
+- Fetch `posts.json` (newest-first); render preview card per post (title, date, first paragraph)
+- Click to expand full post inline (CSS accordion)
 
-**Front matter convention for blog posts:**
+**Front matter convention:**
 ```
 ---
 title: Post Title
@@ -140,36 +115,24 @@ summary: Optional one-line teaser
 
 ### Phase 6 — Polish & Deploy
 
-- Mobile QA: nav hamburger, card stacking, font sizes
-- Error handling: graceful fallback if a `fetch()` 404s
-- Validate all links: resume PDF download, mailto, GitHub, LinkedIn
+- Mobile QA: hamburger, card stacking, font sizes
+- Validate all links: resume PDF, mailto, GitHub, LinkedIn
 - Update `CLAUDE.md` with final decisions
-- Push to `main` — site goes live immediately at `https://cmdavis25.github.io`
-
----
+- Push to `main` → live at `https://cmdavis25.github.io`
 
 ## Index File Format
 
-**`posts.json`** (newest first):
-```json
-["blog_2026-02-23.md"]
-```
+Add new content by prepending the filename to the relevant JSON array and committing the `.md` file.
 
-**`projects.json`**:
-```json
-["project_test_2026-02-23.md"]
-```
+**`posts.json`** (newest first): `["blog_2026-02-23.md"]`
 
-To add new content: add the filename to the relevant JSON and commit the `.md` file.
-
----
+**`projects.json`**: `["project_test_2026-02-23.md"]`
 
 ## Verification Checklist
 
-- [ ] `index.html` opens via Live Server / `python -m http.server` — nav and all sections load
-- [ ] All nav links route to correct pages
-- [ ] Resume link triggers PDF download
-- [ ] GitHub contributions chart image loads
+- [ ] `index.html` loads via `python -m http.server` — nav and all sections render
+- [ ] All nav links route to correct pages; resume triggers PDF download
+- [ ] GitHub contributions chart loads and links to profile
 - [ ] Projects: cards appear, expand on click, all fields visible
 - [ ] Blog: posts listed newest-first, expand on click
 - [ ] Bio: content renders correctly
