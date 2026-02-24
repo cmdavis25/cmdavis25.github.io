@@ -53,7 +53,7 @@ Alongside the hardware engineering, I designed, implemented, and maintained the 
 
 From 2023 to 2025, I worked as a **CAD Engineer for Computational Physical Sciences at Applied Research Associates (ARA)** in Centerville, Ohio — an employee-owned research and engineering firm with deep roots in defense technologies. My main client was the Air Force Research Laboratory (AFRL) at Wright Patterson Air Force Base.
 
-My primary work involved building **data and simulation pipelines** for electromagnetic modeling of aerospace and defense assets. I wrote CUBIT scripts to generate simulation-ready mesh files from CAD geometry, developed Python APIs to input boundary conditions and excitations into simulation tools (CREATE-RF SENTRi, Xpatch, Altair FEKO), and wrote Batch, Bash, PBS, and Slurm scripts to execute those simulations across distributed high-performance computing clusters. I also developed RF signature CAD models using photogrammetry techniques in SolidWorks.
+My work frequently involved building **data and simulation pipelines** for electromagnetic modeling of aerospace and defense assets. I wrote CUBIT scripts to generate simulation-ready mesh files from CAD geometry, developed Python scripts to input boundary conditions and excitations into simulation tools (CREATE-RF SENTRi, Xpatch, Altair FEKO), and wrote Batch, Bash, PBS, and Slurm scripts to execute those simulations across distributed high-performance computing clusters. I also developed RF signature CAD models using photogrammetry techniques in SolidWorks.
 
 This role was the clearest expression yet of what I've been building toward: writing code that moves data through complex pipelines to produce analytical outputs, in a domain where accuracy is non-negotiable.
 
@@ -71,7 +71,15 @@ On the personal project side, I'm actively building and shipping software:
 
 My technical toolkit spans SQL, Python (Pandas, matplotlib, scikit-learn), R (ggplot2), Power BI, Tableau, DAX, Git/GitHub, and a range of AI/LLM tools I use regularly. My statistics background covers hypothesis testing, multiple regression, DOE, Monte Carlo simulation, PCA, and NLP. 
 
-I hold certifications in IBM Data Science, Power BI, Tableau, and DAX/Time Intelligence.
+Much of what I have learned is self-taught, through online coursework and experimentation.
+
+I hold the following online certifications from Coursera:
+
+- IBM Data Science Specialization
+- Data Analysis and Visualization with Power BI
+- Advanced Data Visualization with Tableau
+- Intermediate DAX & Time Intelligence
+- Introduction to Git and GitHub
 
 ---
 
