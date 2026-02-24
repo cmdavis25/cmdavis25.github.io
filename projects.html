@@ -180,9 +180,9 @@
               <div class="project-card-body">
                 <div class="card-title">${data.title || filename}</div>
                 <div class="card-meta">${dateStr}</div>
-                <div class="card-summary">${data.summary || ''}</div>
               </div>
             </div>
+            ${data.summary ? `<div class="card-summary">${data.summary}</div>` : ''}
             ${badgeHTML}
             <div class="project-card-actions">
               <button class="accordion-toggle" aria-expanded="false">Details ▾</button>

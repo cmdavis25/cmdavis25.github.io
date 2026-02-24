@@ -757,6 +757,10 @@ ul, ol {
   display: flex;
   gap: 0.625rem;
   align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.project-card-inner + .card-summary {
   margin-bottom: 0.75rem;
 }
 
