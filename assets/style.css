@@ -497,6 +497,9 @@ ul, ol {
   border-collapse: collapse;
   margin-bottom: 0.9rem;
   font-size: 0.9rem;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .md-content th,
 .md-content td {
