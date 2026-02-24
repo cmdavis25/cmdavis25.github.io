@@ -314,13 +314,13 @@ ul, ol {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 2rem;
   margin-bottom: 0.4rem;
 }
 
 .card-title-row .card-title {
   margin-bottom: 0;
+  min-width: 0;
 }
 
 .card-title-row .card-meta {
@@ -354,6 +354,7 @@ ul, ol {
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .badge {
@@ -662,6 +663,64 @@ ul, ol {
 
 #viz-lightbox-close:hover {
   opacity: 1;
+}
+
+/* ============================================================
+   Project Cards
+   ============================================================ */
+.project-card-inner {
+  display: flex;
+  gap: 0.625rem;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.project-card-thumb {
+  flex: 0 0 auto;
+  max-height: 60px;
+  width: auto;
+  object-fit: contain;
+  border-radius: var(--radius);
+  display: block;
+  align-self: flex-start;
+}
+
+.project-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.project-card-inner.is-wide {
+  flex-direction: column;
+}
+
+.project-card-inner.is-wide .project-card-thumb {
+  width: auto;
+  max-width: 100%;
+  max-height: 60px;
+}
+
+.project-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-github-link {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .project-card-inner {
+    flex-direction: column;
+  }
+
+  .project-card-thumb {
+    max-height: 120px;
+  }
 }
 
 /* ============================================================
