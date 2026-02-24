@@ -32,21 +32,24 @@
 ```
 cmdavis25.github.io/
 ├── index.html              ✅ complete (all sections wired and rendering)
-├── projects.html           ⬜ not started
-├── bio.html                ⬜ not started
+├── projects.html           ✅ complete (3 real projects loading from MD)
+├── bio.html                ✅ complete
 ├── blog.html               ⬜ not started
-├── posts.json              ✅ created  ["blog_2026-02-23.md"]
-├── projects.json           ✅ created  (placeholder)
+├── posts.json              ✅ ["blog_2026-02-23.md"]
+├── projects.json           ✅ 3 real projects indexed (newest first)
 ├── assets/
 │   ├── style.css           ✅ complete
 │   ├── main.js             ✅ complete
 │   ├── avatar.jpg          ← user provides
 │   └── images/
 │       ├── viz/            ✅ 5 images present
-│       └── projects/       ⬜ empty
+│       └── projects/       ✅ thumbnails present for all 3 projects
 ├── blog_posts/
 │   └── blog_2026-02-23.md  ✅ one post with front matter
-├── projects/               ⬜ placeholder file only
+├── projects/
+│   ├── project_instacart_2026-01-15.md      ✅ with front matter + body
+│   ├── project_ganttoro_2026-01-03.md       ✅ with front matter + body
+│   └── project_onetaskatatime_2025-12-10.md ✅ with front matter + body
 ├── resume/                 ✅ PDF present
 ├── value_proposition.md    ✅ content added
 ├── tech_stack.md           ✅ content added
@@ -62,17 +65,25 @@ cmdavis25.github.io/
 - `assets/main.js` — `renderMarkdown()`, `parseFrontMatter()`, `loadIndex()`, nav hamburger, accordion handler, active-page marker
 - `index.html` — sticky nav fully wired; all 6 homepage sections rendering from Markdown + live data
 
-**Homepage section order:** Value Proposition → Latest Post → GitHub Activity → Tech Stack → Skills → Visualizations Gallery
+**Homepage section order:** Value Proposition → GitHub Activity → Latest Post → Tech Stack → Skills → Visualizations Gallery
 **Viz gallery:** 5 images embedded with `<figure>` / `<figcaption>`; lightbox (click to enlarge, Escape/backdrop to close) implemented.
 
 ### ✅ Phase 2 — Homepage Content (complete)
 
 All `.md` source files (`value_proposition.md`, `tech_stack.md`, `skills.md`, `bio.md`) contain real content. One blog post exists (`blog_2026-02-23.md`). Visualization images are in `assets/images/viz/`.
 
-### Phase 3 — Projects Page (`projects.html`)
+### ✅ Phase 3 — Projects Page (`projects.html`) (complete)
 
-- Fetch `projects.json` → load each `.md` → parse front matter + body
-- Summary cards: thumbnail, title, summary, tool badges; click to expand full detail
+- `projects.html` built and fully functional
+- Fetches `projects.json` → loads each `.md` → parses front matter + body
+- Summary cards: thumbnail, title, date, summary, tool badges; "Details ▾" accordion expands full markdown body
+- Wide-thumbnail detection (aspect ratio > 2:1 stacks image above text)
+- GitHub link rendered if present in front matter
+- 3 real projects indexed and rendering:
+  - `project_instacart_2026-01-15.md`
+  - `project_ganttoro_2026-01-03.md`
+  - `project_onetaskatatime_2025-12-10.md`
+- Project thumbnails present in `assets/images/projects/`
 
 **Front matter convention:**
 ```
@@ -86,7 +97,7 @@ date: 2026-02-23
 ---
 ```
 
-### Phase 4 — Bio Page (`bio.html`)
+### ✅ Phase 4 — Bio Page (`bio.html`) (complete)
 
 Single `renderMarkdown('bio.md', el)` call into a centered content area.
 
@@ -115,15 +126,15 @@ summary: Optional one-line teaser
 Add new content by prepending the filename to the relevant JSON array.
 
 **`posts.json`** (newest first): `["blog_2026-02-23.md"]`
-**`projects.json`**: `["project_<slug>_<YYYY-MM-DD>.md"]`
+**`projects.json`** (newest first): `["project_instacart_2026-01-15.md", "project_ganttoro_2026-01-03.md", "project_onetaskatatime_2025-12-10.md"]`
 
 ## Verification Checklist
 
 - [ ] `index.html` loads via `python -m http.server` — nav and all sections render
 - [ ] All nav links route to correct pages; resume triggers PDF download
 - [ ] GitHub contributions chart loads and links to profile
-- [ ] Projects: cards appear, expand on click, all fields visible
+- [x] Projects: cards appear, expand on click, all fields visible
 - [ ] Blog: posts listed newest-first, expand on click
-- [ ] Bio: content renders correctly
+- [x] Bio: content renders correctly
 - [ ] Mobile: nav collapses to hamburger, sections readable, cards stack vertically
 - [ ] Push to `main`, verify live at `https://cmdavis25.github.io`

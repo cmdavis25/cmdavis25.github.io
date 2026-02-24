@@ -18,7 +18,7 @@ There are multiple problems that this application seeks to solve:
 - When users choose to delay tasks, they are prompted to provide an explanatory reason, which is used for delay trend analysis. To prevent tasks from slipping through the cracks, the app periodically resurfaces tasks in holding states (i.e. Deferred, Delegated, Someday/Maybe) based on user preferences. When tasks are resurfaced, the app presents notifications that display within the app and via configurable Windows Toast popups.
 - The app provides users with the options to declare blockers (which create upstream task dependencies) and break a large task down into smaller tasks. This encourages users to tackle complex projects in a logical, piece-by-piece order, adapting their plans with flexibility.
 
-## Screenshots
+## Gallery
 ### Focus Mode:
 ![Focus Mode](../assets/images/projects/focus-mode.png)
 
