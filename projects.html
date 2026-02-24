@@ -30,9 +30,6 @@
         />
         <span class="nav-brand-text">
           <span class="nav-name">C. Morgan Davis</span>
-          <span class="nav-contact">
-            <a href="mailto:cmdavis25@proton.me">cmdavis25@proton.me</a>
-          </span>
         </span>
       </a>
 
@@ -51,6 +48,7 @@
 
       <!-- Nav links + icons -->
       <ul class="nav-links" id="nav-links" role="list">
+        <li class="nav-email-item"><a href="mailto:cmdavis25@proton.me">cmdavis25@proton.me</a></li>
         <li><a href="tel:4157295387" class="nav-phone">415-729-5387</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li>
@@ -63,8 +61,9 @@
         <li><a href="bio.html">Bio</a></li>
         <li><a href="blog.html">Blog</a></li>
 
-        <!-- GitHub icon -->
-        <li>
+        <!-- Social icons -->
+        <li class="nav-icons-row">
+          <!-- GitHub icon -->
           <a
             href="https://github.com/cmdavis25"
             class="nav-icon-link"
@@ -83,10 +82,8 @@
                 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
             </svg>
           </a>
-        </li>
 
-        <!-- LinkedIn icon -->
-        <li>
+          <!-- LinkedIn icon -->
           <a
             href="https://www.linkedin.com/in/c-morgan-davis/"
             class="nav-icon-link"
@@ -127,7 +124,7 @@
   </main>
 
   <!-- Site JS (shared utilities + nav toggle) -->
-  <script src="assets/main.js"></script>
+  <script src="assets/main.js?v=2"></script>
 
   <script>
     (async () => {
@@ -181,10 +178,8 @@
             <div class="project-card-inner">
               ${thumbHTML}
               <div class="project-card-body">
-                <div class="card-title-row">
-                  <div class="card-title">${data.title || filename}</div>
-                  <div class="card-meta">${dateStr}</div>
-                </div>
+                <div class="card-title">${data.title || filename}</div>
+                <div class="card-meta">${dateStr}</div>
                 <div class="card-summary">${data.summary || ''}</div>
               </div>
             </div>

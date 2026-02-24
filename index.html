@@ -30,9 +30,6 @@
         />
         <span class="nav-brand-text">
           <span class="nav-name">C. Morgan Davis</span>
-          <span class="nav-contact">
-            <a href="mailto:cmdavis25@proton.me">cmdavis25@proton.me</a>
-          </span>
         </span>
       </a>
 
@@ -51,6 +48,7 @@
 
       <!-- Nav links + icons -->
       <ul class="nav-links" id="nav-links" role="list">
+        <li class="nav-email-item"><a href="mailto:cmdavis25@proton.me">cmdavis25@proton.me</a></li>
         <li><a href="tel:4157295387" class="nav-phone">415-729-5387</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li>
@@ -63,8 +61,9 @@
         <li><a href="bio.html">Bio</a></li>
         <li><a href="blog.html">Blog</a></li>
 
-        <!-- GitHub icon -->
-        <li>
+        <!-- Social icons -->
+        <li class="nav-icons-row">
+          <!-- GitHub icon -->
           <a
             href="https://github.com/cmdavis25"
             class="nav-icon-link"
@@ -72,7 +71,6 @@
             rel="noopener"
             aria-label="GitHub profile"
           >
-            <!-- GitHub mark SVG (MIT license, GitHub Inc.) -->
             <svg viewBox="0 0 16 16" aria-hidden="true">
               <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
                 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
@@ -84,10 +82,8 @@
                 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
             </svg>
           </a>
-        </li>
 
-        <!-- LinkedIn icon -->
-        <li>
+          <!-- LinkedIn icon -->
           <a
             href="https://www.linkedin.com/in/c-morgan-davis/"
             class="nav-icon-link"
@@ -95,7 +91,6 @@
             rel="noopener"
             aria-label="LinkedIn profile"
           >
-            <!-- LinkedIn "in" icon -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037
                 -1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046
@@ -149,9 +144,9 @@
           aria-label="View cmdavis25 on GitHub"
         >
           <img
+            id="gh-chart-img"
             src="https://ghchart.rshah.org/a0522d/cmdavis25"
             alt="cmdavis25's GitHub contribution chart"
-            loading="lazy"
           />
         </a>
       </section>
@@ -213,6 +208,20 @@
 
   <!-- Site JS (shared utilities + nav toggle) -->
   <script src="assets/main.js"></script>
+
+  <script>
+    // Scroll GitHub chart container to rightmost position once image dimensions are known
+    (function () {
+      const img  = document.getElementById('gh-chart-img');
+      const wrap = img.closest('.gh-chart-wrap');
+      function scrollRight() { wrap.scrollLeft = wrap.scrollWidth; }
+      if (img.complete && img.naturalWidth) {
+        scrollRight();
+      } else {
+        img.addEventListener('load', scrollRight);
+      }
+    })();
+  </script>
 
   <script>
     // Render a Markdown section, hoisting its first heading into the section's <h2>.
@@ -283,10 +292,8 @@
 
         el.innerHTML = `
           <div class="card">
-            <div class="card-title-row">
-              <div class="card-title">${data.title || files[0]}</div>
-              <div class="card-meta">${dateStr}</div>
-            </div>
+            <div class="card-title">${data.title || files[0]}</div>
+            <div class="card-meta">${dateStr}</div>
             ${data.summary ? `<div class="card-summary">${data.summary}</div>` : ''}
             <a class="latest-post-link" href="blog.html#${files[0]}">Read on blog →</a>
           </div>`;
@@ -336,6 +343,26 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
     });
+  </script>
+
+  <script>
+    // Keep scroll-margin-top on each section equal to the actual combined
+    // height of both sticky bars (top nav + section nav), so anchor jumps
+    // never hide the section heading behind them — even when the section nav
+    // wraps to a second line.
+    (function () {
+      const siteNav    = document.querySelector('.site-nav');
+      const sectionNav = document.querySelector('.section-nav');
+      const sections   = document.querySelectorAll('.page-section');
+
+      function updateScrollMargins() {
+        const total = (siteNav?.offsetHeight || 0) + (sectionNav?.offsetHeight || 0) + 8;
+        sections.forEach(s => s.style.scrollMarginTop = total + 'px');
+      }
+
+      updateScrollMargins();
+      window.addEventListener('resize', updateScrollMargins);
+    })();
   </script>
 
 </body>

@@ -94,10 +94,11 @@ date: 2026-01-15
 - `posts.json`: `["blog_pattern_discovery_2026-02-23.md"]`
 - `projects.json`: `["project_instacart_2026-01-15.md", "project_ganttoro_2026-01-03.md", "project_onetaskatatime_2025-12-10.md"]`
 
-## Remaining Work
+## Phase 6 — Polish & Deploy ✅ Complete
 
-### Phase 6 — Polish & Deploy
+- [x] Mobile QA: hamburger, card stacking, font sizes; tap-to-call on phone number
+- [x] Section nav with scroll offsets for sticky header
+- [x] Validate all links: resume PDF, mailto, GitHub, LinkedIn
+- [x] Push to `main` → live at `https://cmdavis25.github.io`
 
-- [ ] Mobile QA: hamburger, card stacking, font sizes
-- [ ] Validate all links: resume PDF, mailto, GitHub, LinkedIn
-- [ ] Push to `main` → live at `https://cmdavis25.github.io`
+## Status: **Site Complete**
