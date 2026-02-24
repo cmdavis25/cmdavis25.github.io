@@ -117,12 +117,32 @@ async function loadIndex(jsonUrl) {
    Accordion expand / collapse
    ============================================================ */
 document.addEventListener('click', e => {
+  // Skip cards that manage their own accordion (e.g. blog posts)
+  const card = e.target.closest('.card');
+  if (card && card.dataset.accordion === 'manual') return;
+
+  // Collapse when clicking anywhere on an open card (but not the toggle itself)
+  if (card && !e.target.closest('.accordion-toggle')) {
+    const body = card.querySelector('.accordion-body.is-open');
+    if (body) {
+      body.classList.remove('is-open');
+      const toggle = card.querySelector('.accordion-toggle');
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.classList.remove('is-hidden');
+      }
+      return;
+    }
+  }
+
+  // Expand when clicking the toggle
   const toggle = e.target.closest('.accordion-toggle');
   if (!toggle) return;
   const body = toggle.closest('.card')?.querySelector('.accordion-body');
   if (!body) return;
   const isOpen = body.classList.toggle('is-open');
   toggle.setAttribute('aria-expanded', String(isOpen));
+  toggle.classList.toggle('is-hidden', isOpen);
 });
 
 /* ============================================================

@@ -213,10 +213,39 @@
       }
     }
 
+    // Value proposition: render as a collapsed card
+    (async () => {
+      const contentEl = document.getElementById('value-proposition-content');
+      const headingEl = document.getElementById('heading-value');
+      try {
+        const res = await fetch('value_proposition.md', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        const html = marked.parse(text);
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        const headings = tmp.querySelectorAll('h1,h2,h3,h4,h5,h6');
+        if (headings[0] && headingEl) {
+          headingEl.textContent = headings[0].textContent;
+          headings[0].remove();
+        }
+        const subHeadings = [...tmp.querySelectorAll('h1,h2,h3,h4,h5,h6')].slice(0, 2);
+        const subheadHtml = subHeadings.map(h => h.outerHTML).join('');
+        subHeadings.forEach(h => h.remove());
+        contentEl.innerHTML = `
+          <div class="card">
+            ${subheadHtml}
+            <button class="accordion-toggle" aria-expanded="false">Learn More ▾</button>
+            <div class="accordion-body md-content">${tmp.innerHTML}</div>
+          </div>`;
+      } catch (err) {
+        contentEl.innerHTML = `<p class="error-msg">Could not load value proposition (${err.message}).</p>`;
+      }
+    })();
+
     // Render homepage Markdown sections
-    renderSection('value_proposition.md', document.getElementById('value-proposition-content'), document.getElementById('heading-value'));
-    renderMarkdown('tech_stack.md',       document.getElementById('tech-stack-content'));
-    renderMarkdown('skills.md',           document.getElementById('skills-content'));
+    renderMarkdown('tech_stack.md', document.getElementById('tech-stack-content'));
+    renderMarkdown('skills.md',     document.getElementById('skills-content'));
 
     // Latest blog post preview
     (async () => {
@@ -238,23 +267,14 @@
           ? new Date(data.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
           : '';
 
-        // First 3 non-empty lines of body text
-        const previewLines = content.split('\n').filter(l => l.trim()).slice(0, 3).join(' ');
-
         el.innerHTML = `
           <div class="card">
             <div class="card-title-row">
               <div class="card-title">${data.title || files[0]}</div>
               <div class="card-meta">${dateStr}</div>
             </div>
-            <div class="card-summary">${data.summary || ''}</div>
-            <button class="accordion-toggle" aria-expanded="false">Read more ▾</button>
-            <div class="accordion-body md-content">
-              <p>${previewLines}</p>
-            </div>
-            <a href="blog.html" style="font-family:var(--font-heading);font-size:0.875rem;display:block;margin-top:0.75rem;">
-              Read all posts →
-            </a>
+            ${data.summary ? `<div class="card-summary">${data.summary}</div>` : ''}
+            <a class="latest-post-link" href="blog.html#${files[0]}">Read on blog →</a>
           </div>`;
       } catch (err) {
         el.innerHTML = `<p class="error-msg">Could not load latest post (${err.message}).</p>`;

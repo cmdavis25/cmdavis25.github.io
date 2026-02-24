@@ -21,6 +21,7 @@
 
   --max-width: 860px;
   --nav-height: 64px;
+  --nav-btn-height: 2rem;
   --radius: 6px;
   --shadow: 0 2px 8px rgba(59, 42, 26, 0.10);
 }
@@ -168,10 +169,16 @@ ul, ol {
   padding: 0;
 }
 
+.nav-links li {
+  display: flex;
+  align-items: center;
+}
+
 .nav-links a {
   display: inline-flex;
   align-items: center;
-  padding: 0.35rem 0.65rem;
+  height: var(--nav-btn-height);
+  padding-inline: 0.65rem;
   border-radius: var(--radius);
   font-family: var(--font-heading);
   font-weight: 600;
@@ -191,7 +198,9 @@ ul, ol {
 .nav-icon-link {
   display: inline-flex;
   align-items: center;
-  padding: 0.35rem;
+  justify-content: center;
+  height: var(--nav-btn-height);
+  padding-inline: 0.5rem;
   border-radius: var(--radius);
   color: var(--text);
   text-decoration: none;
@@ -378,18 +387,33 @@ ul, ol {
   cursor: pointer;
   padding: 0;
   font: inherit;
-  color: inherit;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .accordion-body {
   display: none;
   margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
 }
 
 .accordion-body.is-open {
   display: block;
+}
+
+.accordion-toggle.is-hidden {
+  display: none;
+}
+
+.card:not([data-accordion="manual"]):has(.accordion-body.is-open) {
+  cursor: pointer;
+}
+
+.card[data-accordion="manual"] {
+  cursor: default;
 }
 
 /* ============================================================
@@ -409,8 +433,9 @@ ul, ol {
   border-radius: 3px;
 }
 .md-content pre {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: #2b1f14;
+  border: 1px solid #1a1108;
+  color: #e8d8c0;
   padding: 1rem;
   border-radius: var(--radius);
   overflow-x: auto;
@@ -420,6 +445,7 @@ ul, ol {
   background: none;
   border: none;
   padding: 0;
+  color: inherit;
 }
 .md-content blockquote {
   border-left: 3px solid var(--accent);
@@ -704,6 +730,40 @@ ul, ol {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* Latest post link on homepage */
+.latest-post-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Blog post card actions row */
+.post-card-actions {
+  margin-top: 0.75rem;
+}
+
+.post-card-actions--bottom {
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+.post-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .project-github-link {
