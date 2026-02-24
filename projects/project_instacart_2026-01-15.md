@@ -22,7 +22,7 @@ I am leading a project group that intends to use the following methods to explor
 
 To facilitate this analysis, I developed a Python script that creates a SQLite3 database, defines the desired schema, and then loads the data from several large CSV files. I also developed subsequent scripts that perform missing value checks, one-hot encoding, data summarization, visualizations, and pattern mining.
 
-Our 1st Mid-Term Report (January 22, 2026) can be found here: [Mid-Term Report 1](./Mid-Report%201.pdf)
+Our 1st Mid-Term Report (January 22, 2026) can be found here: [Mid-Term Report 1](./Mid-Report_1.pdf)
 
 ## Gallery
 ### Data Structure
