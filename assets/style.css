@@ -22,6 +22,7 @@
   --max-width: 860px;
   --nav-height: 64px;
   --nav-btn-height: 2rem;
+  --section-nav-height: 2.5rem;
   --radius: 6px;
   --shadow: 0 2px 8px rgba(59, 42, 26, 0.10);
 }
@@ -218,7 +219,7 @@ ul, ol {
   fill: currentColor;
 }
 
-/* Phone number in nav — same style as other nav links, non-interactive */
+/* Phone number in nav — display text on desktop, tap-to-call on mobile */
 .nav-phone {
   display: inline-flex;
   align-items: center;
@@ -226,6 +227,13 @@ ul, ol {
   white-space: nowrap;
   cursor: default;
   pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .nav-phone {
+    pointer-events: auto;
+    cursor: pointer;
+  }
 }
 
 /* Resume download button — identical styling to other nav links */
@@ -281,16 +289,56 @@ ul, ol {
 }
 
 /* ============================================================
+   Section Nav (jump links below top bar)
+   ============================================================ */
+.section-nav {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 90;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding-block: 0.5rem;
+}
+
+.section-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.15rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.section-nav a {
+  display: block;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.section-nav a:hover,
+.section-nav a.is-active {
+  color: var(--accent);
+}
+
+/* ============================================================
    Page Sections
    ============================================================ */
 .site-main {
-  padding-top: 1rem;
+  padding-top: 0.25rem;
   padding-bottom: 2.5rem;
 }
 
 .page-section {
-  padding-block: 2rem;
+  padding-block: 1rem 2rem;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: calc(var(--nav-height) + var(--section-nav-height));
 }
 
 .page-section:last-child {
