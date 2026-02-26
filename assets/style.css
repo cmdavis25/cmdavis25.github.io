@@ -323,6 +323,18 @@ ul, ol {
   color: var(--accent);
 }
 
+.section-nav-download {
+  color: var(--accent) !important;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 0.2rem 0.65rem !important;
+}
+
+.section-nav-download:hover {
+  background: var(--accent);
+  color: var(--bg) !important;
+}
+
 /* ============================================================
    Page Sections
    ============================================================ */
@@ -333,6 +345,10 @@ ul, ol {
 
 .page-section {
   padding-block: 1rem 2rem;
+}
+
+.resume-sections .page-section {
+  padding-block: 0.5rem 1rem;
 }
 
 .section-heading {

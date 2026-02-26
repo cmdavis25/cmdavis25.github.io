@@ -51,7 +51,7 @@ Alongside the hardware engineering, I designed, implemented, and maintained the 
 
 ## Defense Research and Computational Pipelines
 
-From 2023 to 2025, I worked as a **CAD Engineer for Computational Physical Sciences at Applied Research Associates (ARA)** in Centerville, Ohio — an employee-owned research and engineering firm with deep roots in defense technologies. My main client was the Air Force Research Laboratory (AFRL) at Wright Patterson Air Force Base.
+From 2023 to 2025, I worked as an **Engineer in the Computational Physical Sciences Group at Applied Research Associates (ARA)** in Dayton, Ohio — an employee-owned research and engineering firm with deep roots in defense technologies. My main client was the Air Force Research Laboratory (AFRL) at Wright Patterson Air Force Base.
 
 My work frequently involved building **data and simulation pipelines** for electromagnetic modeling of aerospace and defense assets. I wrote CUBIT scripts to generate simulation-ready mesh files from CAD geometry, developed Python scripts to input boundary conditions and excitations into simulation tools (CREATE-RF SENTRi, Xpatch, Altair FEKO), and wrote Batch, Bash, PBS, and Slurm scripts to execute those simulations across distributed high-performance computing clusters. I also developed RF signature CAD models using photogrammetry techniques in SolidWorks.
 
@@ -76,10 +76,10 @@ Much of what I have learned is self-taught, through online coursework and experi
 I hold the following online certifications from Coursera:
 
 - IBM Data Science Specialization
+- University of Colorado Boulder – Excel/VBA for Creative Problem Solving Specialization
 - Data Analysis and Visualization with Power BI
 - Advanced Data Visualization with Tableau
 - Intermediate DAX & Time Intelligence
-- Introduction to Git and GitHub
 
 ---
 
