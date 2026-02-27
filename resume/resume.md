@@ -1,6 +1,6 @@
 # C. Morgan Davis
 
-**Active Secret Clearance** | Data Specialist | Python, SQL, ETL | Engineering Systems Background
+**Active Secret Clearance** | Data Engineer | Python, SQL, ETL | Engineering Systems Background
 
 **Phone**: 1-415-729-5387  
 **Email**: cmdavis25@proton.me  
@@ -9,7 +9,7 @@
 
 ## Summary
 
-Data specialist with 16+ years building quantitative models, pipelines, and analytical capabilities across aerospace/defense, medical devices, automotive, and consumer products sectors. Engineering background provides domain expertise in simulation data, manufacturing cost modeling, and industrial process analysis. Focus on Monte Carlo simulation, statistical modeling, and machine learning applications. Pursuing a Master of Data Analytics degree at Penn State.
+Data engineer with 16+ years building quantitative models, pipelines, and analytical capabilities across aerospace/defense, medical devices, automotive, and consumer products sectors. Engineering background provides domain expertise in simulation data, manufacturing cost modeling, and industrial process analysis. Focus on Monte Carlo simulation, statistical modeling, and machine learning applications. Pursuing a Master of Data Analytics degree at Penn State.
 
 Top clients include Air Force Research Laboratory (AFRL), NASA, Northrop Grumman, Delta Faucet, Rivian, & Mercedes-Benz.
 
