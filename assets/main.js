@@ -2,6 +2,36 @@
    main.js — shared utilities for cmdavis25.github.io
    ============================================================ */
 
+/* ============================================================
+   Math-safe marked renderer
+   Extracts $$...$$ and $...$ blocks before marked.parse() so
+   that marked cannot escape their contents, then restores them
+   in the output HTML before MathJax runs.
+   ============================================================ */
+function parseMarkdownWithMath(text) {
+  const stash = [];
+  const placeholder = (i) => `\x02MATH${i}\x03`;
+
+  // Stash display math first ($$...$$), then inline ($...$)
+  let out = text
+    .replace(/\$\$([\s\S]+?)\$\$/g, (_, inner) => {
+      stash.push(`$$${inner}$$`);
+      return placeholder(stash.length - 1);
+    })
+    .replace(/\$([^\n$]+?)\$/g, (_, inner) => {
+      stash.push(`$${inner}$`);
+      return placeholder(stash.length - 1);
+    });
+
+  // Parse the math-free text with marked
+  let html = marked.parse(out);
+
+  // Restore math blocks verbatim
+  html = html.replace(/\x02MATH(\d+)\x03/g, (_, i) => stash[+i]);
+
+  return html;
+}
+
 /**
  * Fetch a Markdown file, parse it with marked.js, and inject the
  * resulting HTML into `el`.  Displays loading/error states inline.

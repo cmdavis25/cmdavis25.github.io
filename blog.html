@@ -9,6 +9,22 @@
   <!-- marked.js CDN (Markdown → HTML) -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
+  <!-- MathJax: render LaTeX in blog posts -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      startup: { typeset: false }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" defer></script>
+
   <!-- Site styles -->
   <link rel="stylesheet" href="assets/style.css" />
 </head>
@@ -118,7 +134,7 @@
   </main>
 
   <!-- Site JS (shared utilities + nav toggle) -->
-  <script src="assets/main.js?v=2"></script>
+  <script src="assets/main.js?v=3"></script>
 
   <script>
     (async () => {
@@ -145,8 +161,8 @@
             ? new Date(data.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
             : '';
 
-          // Body content (rendered Markdown)
-          const bodyHTML = marked.parse(content);
+          // Body content (rendered Markdown, with math blocks protected)
+          const bodyHTML = parseMarkdownWithMath(content);
 
           const cardEl = document.createElement('article');
           cardEl.className = 'card';
@@ -185,6 +201,11 @@
           bottomBtn.addEventListener('click', collapse);
 
           listEl.appendChild(cardEl);
+
+          // Typeset any math in this post once it's in the DOM
+          if (window.MathJax?.typesetPromise) {
+            MathJax.typesetPromise([cardEl]);
+          }
         } catch (err) {
           const errEl = document.createElement('p');
           errEl.className = 'error-msg';
