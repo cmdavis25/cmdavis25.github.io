@@ -481,8 +481,9 @@ ul, ol {
 .md-content ol { margin-bottom: 0.9rem; }
 .md-content li { margin-bottom: 0.25rem; }
 .md-content code {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: #2b1f14;
+  border: 1px solid #1a1108;
+  color: #e8d8c0;
   padding: 0.1em 0.35em;
   border-radius: 3px;
 }

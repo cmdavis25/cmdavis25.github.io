@@ -3,6 +3,28 @@
    ============================================================ */
 
 /* ============================================================
+   Analytics helpers (GoatCounter)
+   ============================================================ */
+function trackEvent(path, title) {
+  if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({ path: path, title: title, event: true });
+  }
+}
+
+// Outbound link tracking (GitHub + LinkedIn in nav)
+document.addEventListener('click', e => {
+  const link = e.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  if (!href || !href.startsWith('http')) return;
+  if (href.includes('github.com/cmdavis25')) {
+    trackEvent('outbound/github', 'Outbound: GitHub Profile');
+  } else if (href.includes('linkedin.com/in/c-morgan-davis')) {
+    trackEvent('outbound/linkedin', 'Outbound: LinkedIn Profile');
+  }
+});
+
+/* ============================================================
    Math-safe marked renderer
    Extracts $$...$$ and $...$ blocks before marked.parse() so
    that marked cannot escape their contents, then restores them

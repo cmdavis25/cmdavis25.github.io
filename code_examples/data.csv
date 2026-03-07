@@ -1,0 +1,31 @@
+id,name,department,hire_date,salary,performance_score,region,last_review_date,notes
+1,Alice Morrow,Engineering,2019-03-12,95000,4.2,West,,Promoted in 2021
+2,Bob Tanaka,Marketing,2021-07-01,72000,3.8,East,2024-06-15,
+3,Carol Osei,Engineering,2018-11-20,108000,4.7,West,2024-11-01,Senior lead
+4,David Lim,Sales,2022-01-15,65000,3.1,Central,2024-03-10,
+5,Eva Rosario,HR,2020-06-30,68000,3.9,East,2024-08-22,
+6,Frank Adeyemi,Engineering,2017-05-09,120000,,West,2024-10-05,Missing review score
+7,Grace Kim,Marketing,2023-02-28,70000,4.0,East,2024-12-01,
+8,Hiro Nakamura,Sales,2021-09-14,67000,2.9,West,2024-04-18,On performance plan
+9,Iris Delacroix,Engineering,2019-08-01,99000,4.5,East,,
+10,James Okafor,Finance,2016-12-01,115000,4.8,Central,2024-09-30,
+11,Karen Patel,HR,2022-04-11,66000,3.7,Central,2024-07-14,
+12,Leo Martins,Sales,2023-10-02,63000,3.3,West,2024-05-09,
+13,Maria Santos,Finance,2020-01-22,110000,4.6,East,2024-11-20,
+14,Noah Bergstrom,Engineering,2018-03-05,102000,4.1,Central,2024-10-15,
+15,Olivia Chen,Marketing,2021-11-18,74000,4.3,West,2024-06-28,
+16,Paul Kimura,Sales,2022-08-30,,3.0,East,,Salary pending review
+17,Quinn Wallace,Engineering,2019-06-17,97000,4.4,West,2024-09-12,
+18,Rosa Ferreira,Finance,2015-04-23,125000,4.9,East,2024-10-31,Longest tenured
+19,Sam Oduya,HR,2023-07-07,64000,3.5,Central,2024-08-05,
+20,Tina Brooks,Engineering,2020-10-14,93000,4.0,West,2024-11-11,
+21,Uma Johansson,Marketing,2022-03-01,71000,3.6,Central,2024-07-02,
+22,Victor Eze,Sales,2021-05-25,68000,3.2,East,2024-03-28,
+23,Wendy Chu,Engineering,2017-09-11,116000,,Central,,Senior architect; review skipped
+24,Xavier Reyes,Finance,2019-02-14,107000,4.3,West,2024-09-01,
+25,Yara Mensah,HR,2023-01-09,63000,3.8,East,2024-06-19,
+26,Zoe Andersen,Engineering,2018-07-30,101000,4.2,Central,2024-10-22,
+27,Aaron Diallo,Sales,2022-11-03,66000,3.4,West,2024-04-10,
+28,Bella Nguyen,Marketing,2020-09-16,73000,4.1,East,2024-12-05,
+29,Chris Owusu,Finance,2016-08-08,118000,4.7,Central,2024-11-15,
+30,Diana Espinoza,Engineering,2021-04-20,90000,3.9,West,2024-08-30,

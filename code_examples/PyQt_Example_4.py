@@ -1,0 +1,75 @@
+import sys
+import pandas as pd
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, \
+    QLabel, QFileDialog, QTableWidget, QTableWidgetItem, QTableView
+from PyQt5.QtCore import Qt, QAbstractTableModel
+
+class CSVInspector(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("CSV Inspector")
+        self.resize(400, 200)
+
+        central = QWidget()
+        self.setCentralWidget(central)
+        layout = QVBoxLayout(central)
+
+        self.load_btn = QPushButton("Load CSV")
+        self.load_btn.clicked.connect(self.load_csv)
+
+        self.info_label = QLabel("No file loaded.")
+
+        #self.table = QTableWidget()  # no longer used
+        #self.table.setEditTriggers(QTableWidget.NoEditTriggers)  # no longer used
+        self.table = QTableView()
+
+        layout.addWidget(self.load_btn)
+        layout.addWidget(self.info_label)
+        layout.addWidget(self.table)  # add it to the layout
+
+    def load_csv(self):
+        path, _ = QFileDialog.getOpenFileName(self, "Open CSV", "", "CSV Files (*.csv)")
+        if not path:
+            return
+        df = pd.read_csv(path)
+        self.info_label.setText(f"{len(df):,} rows, {len(df.columns)} columns")
+        #self._populate_table(df)  # no longer used
+        self.table.setModel(DataFrameModel(df))
+
+#    def _populate_table(self, df): # method no longer used
+#        self.table.setRowCount(len(df))
+#        self.table.setColumnCount(len(df.columns))
+#        self.table.setHorizontalHeaderLabels(df.columns.tolist())
+#
+#        for i, row in df.iterrows():
+#            for j, value in enumerate(row):
+#                self.table.setItem(i, j, QTableWidgetItem(str(value)))
+
+class DataFrameModel(QAbstractTableModel):
+    def __init__(self, df):
+        super().__init__()
+        self._df = df
+
+    def rowCount(self, parent=None):
+        return len(self._df)
+
+    def columnCount(self, parent=None):
+        return len(self._df.columns)
+
+    def data(self, index, role=Qt.DisplayRole):
+        if role == Qt.DisplayRole:
+            return str(self._df.iloc[index.row(), index.column()])
+        return None
+
+    def headerData(self, section, orientation, role=Qt.DisplayRole):
+        if role == Qt.DisplayRole:
+            if orientation == Qt.Horizontal:
+                return self._df.columns[section]
+            return str(section)
+        return None
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = CSVInspector()
+    window.show()
+    sys.exit(app.exec_())
