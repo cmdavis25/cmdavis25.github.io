@@ -208,10 +208,13 @@
   <script src="assets/main.js"></script>
 
   <script>
-    // Scroll GitHub chart container to rightmost position once image dimensions are known
+    // Bust the GitHub chart cache once per day, then scroll to the right edge
     (function () {
       const img  = document.getElementById('gh-chart-img');
       const wrap = img.closest('.gh-chart-wrap');
+      // Replace src with a date-stamped URL so the browser fetches a fresh chart each day
+      const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+      img.src = 'https://ghchart.rshah.org/a0522d/cmdavis25?v=' + today;
       function scrollRight() { wrap.scrollLeft = wrap.scrollWidth; }
       if (img.complete && img.naturalWidth) {
         scrollRight();
