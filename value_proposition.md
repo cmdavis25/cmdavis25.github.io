@@ -7,6 +7,5 @@ With a background supporting clients in aerospace / defense (AFRL, NASA, Northro
 
 I ask better questions, build more relevant models, and deliver insights that *actually* get used.
 
-I work best at the intersection of *technical depth* and *business impact* -- 
-
+I work best at the intersection of *technical depth* and *business impact* --  
 **where getting the analysis right is mission-critical**.

@@ -111,11 +111,11 @@
   <nav class="section-nav" aria-label="Jump to section">
     <ul role="list">
       <li><a href="#value-proposition">About</a></li>
-      <li><a href="#github-activity">GitHub</a></li>
-      <li><a href="#latest-post">Latest Post</a></li>
       <li><a href="#tech-stack">Tech Stack</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#visualizations">Visualizations</a></li>
+      <li><a href="#latest-post">Latest Post</a></li>
+      <li><a href="#github-activity">GitHub</a></li>
     </ul>
   </nav>
 
@@ -129,30 +129,6 @@
       <section class="page-section" id="value-proposition" aria-labelledby="heading-value">
         <h2 class="section-heading" id="heading-value">Value Proposition</h2>
         <div id="value-proposition-content"></div>
-      </section>
-
-      <!-- GitHub Contributions -->
-      <section class="page-section" id="github-activity" aria-labelledby="heading-github">
-        <h2 class="section-heading" id="heading-github">GitHub Activity</h2>
-        <a
-          class="gh-chart-wrap"
-          href="https://github.com/cmdavis25"
-          target="_blank"
-          rel="noopener"
-          aria-label="View cmdavis25 on GitHub"
-        >
-          <img
-            id="gh-chart-img"
-            src="https://ghchart.rshah.org/a0522d/cmdavis25"
-            alt="cmdavis25's GitHub contribution chart"
-          />
-        </a>
-      </section>
-
-      <!-- Latest Blog Post (preview) -->
-      <section class="page-section" id="latest-post" aria-labelledby="heading-blog">
-        <h2 class="section-heading" id="heading-blog">Latest Post</h2>
-        <div id="latest-post-content"></div>
       </section>
 
       <!-- Tech Stack -->
@@ -172,26 +148,62 @@
         <h2 class="section-heading" id="heading-viz">Visualizations Gallery</h2>
         <div id="viz-gallery">
           <figure class="viz-item">
-            <img src="assets/images/viz/Order_Volume_by_Hour_Line_users.png" alt="Order volume by hour of day — line chart" loading="lazy" />
-            <figcaption>Order Volume by Hour of Day</figcaption>
+            <img src="assets/images/viz/pca_loading_heatmap.png" alt="Heatmap of PCA component loadings across features" loading="lazy" />
+            <figcaption>Component Loading Heatmap · PCA</figcaption>
           </figure>
           <figure class="viz-item">
-            <img src="assets/images/viz/Basket_Quantity_Frequency_Hist_users.png" alt="Basket quantity frequency — histogram" loading="lazy" />
-            <figcaption>Basket Quantity Frequency</figcaption>
+            <img src="assets/images/viz/kmeans_k_selection.png" alt="Elbow and silhouette score plot for K-Means cluster count selection" loading="lazy" />
+            <figcaption>K Selection (Elbow &amp; Silhouette) · K-Means</figcaption>
+          </figure>
+          <figure class="viz-item">
+            <img src="assets/images/viz/dbscan_clusters_pca.png" alt="DBSCAN clusters with noise points projected onto PCA axes" loading="lazy" />
+            <figcaption>Density Clusters with Noise · DBSCAN</figcaption>
+          </figure>
+          <figure class="viz-item">
+            <img src="assets/images/viz/pca_cumulative_variance.png" alt="Cumulative explained variance by number of PCA components" loading="lazy" />
+            <figcaption>Cumulative Explained Variance · PCA</figcaption>
+          </figure>
+          <figure class="viz-item">
+            <img src="assets/images/viz/pca_biplot.png" alt="PCA biplot showing scores and feature loadings" loading="lazy" />
+            <figcaption>Biplot (Scores &amp; Loadings) · PCA</figcaption>
+          </figure>
+          <figure class="viz-item">
+            <img src="assets/images/viz/Order_Volume_by_Hour_Line_users.png" alt="Order volume by hour of day — line chart" loading="lazy" />
+            <figcaption>Order Volume by Hour · Instacart EDA</figcaption>
           </figure>
           <figure class="viz-item">
             <img src="assets/images/viz/Total_Reorders_Department_Barchart_users.png" alt="Total reorders by department — bar chart" loading="lazy" />
-            <figcaption>Total Reorders by Department</figcaption>
+            <figcaption>Reorders by Department · Instacart EDA</figcaption>
           </figure>
           <figure class="viz-item">
-            <img src="assets/images/viz/aisle_id_Per_Order_Sums_Pairplot_users.png" alt="Aisle ID per-order sums — pairplot" loading="lazy" />
-            <figcaption>Aisle ID Per-Order Sums (Pairplot)</figcaption>
-          </figure>
-          <figure class="viz-item">
-            <img src="assets/images/viz/department_id_Per_Order_Sums_Pairplot_users.png" alt="Department ID per-order sums — pairplot" loading="lazy" />
-            <figcaption>Department ID Per-Order Sums (Pairplot)</figcaption>
+            <img src="assets/images/viz/Basket_Quantity_Frequency_Hist_users.png" alt="Basket quantity frequency — histogram" loading="lazy" />
+            <figcaption>Basket Size Distribution · Instacart EDA</figcaption>
           </figure>
         </div>
+      </section>
+
+      <!-- Latest Blog Post (preview) -->
+      <section class="page-section" id="latest-post" aria-labelledby="heading-blog">
+        <h2 class="section-heading" id="heading-blog">Latest Post</h2>
+        <div id="latest-post-content"></div>
+      </section>
+
+      <!-- GitHub Contributions -->
+      <section class="page-section" id="github-activity" aria-labelledby="heading-github">
+        <h2 class="section-heading" id="heading-github">GitHub Activity</h2>
+        <a
+          class="gh-chart-wrap"
+          href="https://github.com/cmdavis25"
+          target="_blank"
+          rel="noopener"
+          aria-label="View cmdavis25 on GitHub"
+        >
+          <img
+            id="gh-chart-img"
+            src="https://ghchart.rshah.org/a0522d/cmdavis25"
+            alt="cmdavis25's GitHub contribution chart"
+          />
+        </a>
       </section>
 
     </div>
