@@ -1,1 +1,38 @@
-["blog_kernel_tsne_umap_2026-03-27.md","blog_pca_2026-03-20.md","blog_dbscan_2026-03-14.md","blog_pyqt_2026-03-06.md","blog_kmeans_clustering_2026-02-27.md","blog_pattern_discovery_2026-02-23.md"]
+[
+  {
+    "filename": "blog_kernel_tsne_umap_2026-03-27.md",
+    "title": "Beyond Linear PCA: Kernel PCA, t-SNE, and UMAP",
+    "date": "2026-03-27",
+    "summary": "PCA finds linear structure. Real data often isn't linear. This post derives Kernel PCA, t-SNE, and UMAP from first principles and applies all three to the same breast cancer dataset used in last week's PCA walkthrough."
+  },
+  {
+    "filename": "blog_pca_2026-03-20.md",
+    "title": "Principal Component Analysis: Find the Needle in Your Feature Haystack",
+    "date": "2026-03-20",
+    "summary": "Most datasets have far fewer meaningful dimensions than features. PCA finds them. With a real cancer dataset, learn how PCA can compress 30 noisy features into 6 with minimal loss in classifier accuracy."
+  },
+  {
+    "filename": "blog_dbscan_2026-03-14.md",
+    "title": "DBSCAN Clustering: A Practical Guide (and How to Switch from K-Means)",
+    "date": "2026-03-14",
+    "summary": "How DBSCAN finds arbitrarily shaped clusters and handles outliers automatically, and how to swap it into code that used K-Means."
+  },
+  {
+    "filename": "blog_pyqt_2026-03-06.md",
+    "title": "PyQt for Data Professionals: Wrap Your Scripts in a Real Desktop App",
+    "date": "2026-03-06",
+    "summary": "You already know Python. PyQt lets you turn your existing data scripts into desktop apps that non-technical teammates can actually use — no web server required."
+  },
+  {
+    "filename": "blog_kmeans_clustering_2026-02-27.md",
+    "title": "A Practical Guide to K-Means Clustering",
+    "date": "2026-02-27",
+    "summary": "A primer on the K-Means clustering method, and how to draw the right conclusions with it."
+  },
+  {
+    "filename": "blog_pattern_discovery_2026-02-23.md",
+    "title": "Comparing Pattern Discovery Algorithms -- Apriori vs FPGrowth",
+    "date": "2026-02-23",
+    "summary": "Which algorithm should you use for your application?"
+  }
+]

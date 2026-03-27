@@ -143,80 +143,85 @@
   <script>
     (async () => {
       const listEl = document.getElementById('posts-list');
-      const files = await loadIndex('posts.json');
+      const posts = await loadIndex('posts.json');
 
-      if (!files.length) {
+      if (!posts.length) {
         listEl.innerHTML = '<p class="loading-msg">No posts yet.</p>';
         return;
       }
 
       listEl.innerHTML = '';
 
-      for (const filename of files) {
-        const url = 'blog_posts/' + filename;
-        try {
-          const res = await fetch(url, { cache: 'no-cache' });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const text = await res.text();
-          const { data, content } = parseFrontMatter(text);
+      for (const post of posts) {
+        const { filename, title, date, summary } = post;
 
-          // Format date
-          const dateStr = data.date
-            ? new Date(data.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-            : '';
+        const dateStr = date
+          ? new Date(date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+          : '';
 
-          // Body content (rendered Markdown, with math blocks protected)
-          const bodyHTML = parseMarkdownWithMath(content);
+        const cardEl = document.createElement('article');
+        cardEl.className = 'card';
+        cardEl.dataset.accordion = 'manual';
+        cardEl.id = filename;
+        cardEl.innerHTML = `
+          <div class="card-title">${title || filename}</div>
+          <div class="card-meta">${dateStr}</div>
+          ${summary ? `<div class="card-summary">${summary}</div>` : ''}
+          <div class="post-card-actions">
+            <button class="post-toggle" aria-expanded="false">Read more ▾</button>
+          </div>
+          <div class="accordion-body md-content">
+            <p class="loading-msg">Loading…</p>
+          </div>`;
 
-          const cardEl = document.createElement('article');
-          cardEl.className = 'card';
-          cardEl.dataset.accordion = 'manual';
-          cardEl.id = filename;
-          cardEl.innerHTML = `
-            <div class="card-title">${data.title || filename}</div>
-            <div class="card-meta">${dateStr}</div>
-            ${data.summary ? `<div class="card-summary">${data.summary}</div>` : ''}
-            <div class="post-card-actions">
-              <button class="post-toggle" aria-expanded="false">Read more ▾</button>
-            </div>
-            <div class="accordion-body md-content">
-              ${bodyHTML}
-              <div class="post-card-actions post-card-actions--bottom">
-                <button class="post-toggle">Collapse ▴</button>
-              </div>
-            </div>`;
+        const toggleBtn = cardEl.querySelector('.post-toggle');
+        const body = cardEl.querySelector('.accordion-body');
+        let loaded = false;
 
-          const toggleBtn = cardEl.querySelector('.post-toggle');
-          const bottomBtn = cardEl.querySelectorAll('.post-toggle')[1];
-          const body = cardEl.querySelector('.accordion-body');
+        const expand = async () => {
+          body.classList.add('is-open');
+          toggleBtn.setAttribute('aria-expanded', 'true');
+          toggleBtn.textContent = 'Collapse ▴';
+          trackEvent('blog-expand/' + filename, 'Blog Expand: ' + (title || filename));
 
-          const collapse = () => {
-            body.classList.remove('is-open');
-            toggleBtn.setAttribute('aria-expanded', 'false');
-            toggleBtn.textContent = 'Read more ▾';
-          };
-
-          toggleBtn.addEventListener('click', () => {
-            const isOpen = body.classList.toggle('is-open');
-            toggleBtn.setAttribute('aria-expanded', String(isOpen));
-            toggleBtn.textContent = isOpen ? 'Collapse ▴' : 'Read more ▾';
-            if (isOpen) {
-              trackEvent('blog-expand/' + filename, 'Blog Expand: ' + (data.title || filename));
-              if (window.MathJax?.typesetPromise) {
-                MathJax.typesetPromise([body]);
-              }
+          if (!loaded) {
+            loaded = true;
+            try {
+              const res = await fetch('blog_posts/' + filename, { cache: 'no-cache' });
+              if (!res.ok) throw new Error(`HTTP ${res.status}`);
+              const text = await res.text();
+              const { content } = parseFrontMatter(text);
+              const bodyHTML = parseMarkdownWithMath(content);
+              body.innerHTML = `${bodyHTML}
+                <div class="post-card-actions post-card-actions--bottom">
+                  <button class="post-toggle">Collapse ▴</button>
+                </div>`;
+              body.querySelector('.post-toggle').addEventListener('click', collapse);
+            } catch (err) {
+              body.innerHTML = `<p class="error-msg">Could not load post (${err.message}).</p>`;
             }
-          });
+          }
 
-          bottomBtn.addEventListener('click', collapse);
+          if (window.MathJax?.typesetPromise) {
+            MathJax.typesetPromise([body]);
+          }
+        };
 
-          listEl.appendChild(cardEl);
-        } catch (err) {
-          const errEl = document.createElement('p');
-          errEl.className = 'error-msg';
-          errEl.textContent = `Could not load ${filename} (${err.message}).`;
-          listEl.appendChild(errEl);
-        }
+        const collapse = () => {
+          body.classList.remove('is-open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          toggleBtn.textContent = 'Read more ▾';
+        };
+
+        toggleBtn.addEventListener('click', () => {
+          if (body.classList.contains('is-open')) {
+            collapse();
+          } else {
+            expand();
+          }
+        });
+
+        listEl.appendChild(cardEl);
       }
 
       // Auto-expand the card named in the URL hash (e.g. blog.html#blog_foo.md)
@@ -227,10 +232,9 @@
           const toggleBtn = target.querySelector('.post-toggle');
           const body = target.querySelector('.accordion-body');
           if (toggleBtn && body) {
-            body.classList.add('is-open');
-            toggleBtn.setAttribute('aria-expanded', 'true');
-            toggleBtn.textContent = 'Collapse ▴';
-            // MathJax is deferred — wait for it to be ready before typesetting
+            // Trigger the expand path so content is fetched and MathJax runs
+            toggleBtn.click();
+            // Wait for MathJax to be ready before typesetting
             MathJax.startup.promise.then(() => MathJax.typesetPromise([body]));
           }
           // Scroll after layout settles, offsetting for the sticky nav

@@ -283,33 +283,22 @@
     // Latest blog post preview
     (async () => {
       const el = document.getElementById('latest-post-content');
-      const files = await loadIndex('posts.json');
-      if (!files.length) {
+      const posts = await loadIndex('posts.json');
+      if (!posts.length) {
         el.innerHTML = '<p class="loading-msg">No posts yet.</p>';
         return;
       }
-      const url = 'blog_posts/' + files[0];
-      try {
-        const res = await fetch(url, { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const text = await res.text();
-        const { data, content } = parseFrontMatter(text);
-
-        // Format date as "Month D, YYYY"
-        const dateStr = data.date
-          ? new Date(data.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-          : '';
-
-        el.innerHTML = `
-          <div class="card">
-            <div class="card-title">${data.title || files[0]}</div>
-            <div class="card-meta">${dateStr}</div>
-            ${data.summary ? `<div class="card-summary">${data.summary}</div>` : ''}
-            <a class="latest-post-link" href="blog.html#${files[0]}">Read on blog →</a>
-          </div>`;
-      } catch (err) {
-        el.innerHTML = `<p class="error-msg">Could not load latest post (${err.message}).</p>`;
-      }
+      const { filename, title, date, summary } = posts[0];
+      const dateStr = date
+        ? new Date(date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+        : '';
+      el.innerHTML = `
+        <div class="card">
+          <div class="card-title">${title || filename}</div>
+          <div class="card-meta">${dateStr}</div>
+          ${summary ? `<div class="card-summary">${summary}</div>` : ''}
+          <a class="latest-post-link" href="blog.html#${filename}">Read on blog →</a>
+        </div>`;
     })();
   </script>
 
