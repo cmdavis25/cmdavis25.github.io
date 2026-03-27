@@ -32,7 +32,7 @@ document.addEventListener('click', e => {
    ============================================================ */
 function parseMarkdownWithMath(text) {
   const stash = [];
-  const placeholder = (i) => `\x02MATH${i}\x03`;
+  const placeholder = (i) => `MATHSTASH_${i}_`;
 
   // Stash display math first ($$...$$), then inline ($...$)
   let out = text
@@ -49,7 +49,7 @@ function parseMarkdownWithMath(text) {
   let html = marked.parse(out);
 
   // Restore math blocks verbatim
-  html = html.replace(/\x02MATH(\d+)\x03/g, (_, i) => stash[+i]);
+  html = html.replace(/MATHSTASH_(\d+)_/g, (_, i) => stash[+i]);
 
   return html;
 }
