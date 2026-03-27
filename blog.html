@@ -202,17 +202,15 @@
             toggleBtn.textContent = isOpen ? 'Collapse ▴' : 'Read more ▾';
             if (isOpen) {
               trackEvent('blog-expand/' + filename, 'Blog Expand: ' + (data.title || filename));
+              if (window.MathJax?.typesetPromise) {
+                MathJax.typesetPromise([body]);
+              }
             }
           });
 
           bottomBtn.addEventListener('click', collapse);
 
           listEl.appendChild(cardEl);
-
-          // Typeset any math in this post once it's in the DOM
-          if (window.MathJax?.typesetPromise) {
-            MathJax.typesetPromise([cardEl]);
-          }
         } catch (err) {
           const errEl = document.createElement('p');
           errEl.className = 'error-msg';
