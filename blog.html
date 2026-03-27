@@ -230,6 +230,8 @@
             body.classList.add('is-open');
             toggleBtn.setAttribute('aria-expanded', 'true');
             toggleBtn.textContent = 'Collapse ▴';
+            // MathJax is deferred — wait for it to be ready before typesetting
+            MathJax.startup.promise.then(() => MathJax.typesetPromise([body]));
           }
           // Scroll after layout settles, offsetting for the sticky nav
           requestAnimationFrame(() => {
