@@ -1,5 +1,11 @@
 [
   {
+    "filename": "blog_logistic_regression_2026-04-17.md",
+    "title": "Logistic Regression in Python: A Step-by-Step Guide",
+    "date": "2026-04-17",
+    "summary": "Predict machine failure before it happens — a complete logistic regression walkthrough in Python."
+  },
+  {
     "filename": "blog_kernel_tsne_umap_2026-03-27.md",
     "title": "Beyond Linear PCA: Kernel PCA, t-SNE, and UMAP",
     "date": "2026-03-27",
