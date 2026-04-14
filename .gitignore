@@ -1,3 +1,4 @@
 CLAUDE.md
 venv/
 .ipynb_checkpoints/
+code_examples/_cell_*.txt
