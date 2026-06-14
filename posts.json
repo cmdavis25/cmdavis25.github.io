@@ -1,5 +1,11 @@
 [
   {
+    "filename": "blog_fuzzy_semantic_matching_2026-06-12.md",
+    "title": "Your Data Join Is Half Empty Because of Typos. Here's How to Fix It.",
+    "date": "2026-06-12",
+    "summary": "The same value spelled twenty different ways is one of the most common blockers in real-world data work. This post covers fuzzy matching for typos and abbreviations, sentence embeddings for true synonyms, and how to combine them into a two-pass pipeline — evaluated against ground truth with F1 scores above 0.95."
+  },
+  {
     "filename": "blog_logistic_regression_2026-04-17.md",
     "title": "Logistic Regression in Python: A Step-by-Step Guide",
     "date": "2026-04-17",
